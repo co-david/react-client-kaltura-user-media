@@ -1,0 +1,9 @@
+.content-header {
+	display: flex;
+	align-items: center;
+	padding: 0 25px;
+}
+
+.content-header h2 {
+	flex: 1;
+}

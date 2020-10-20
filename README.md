@@ -1,3 +1,10 @@
+# react-client-kaltura-user-media
+
+#### Demo
+[![Demo](http://img.youtube.com/vi/L2_Er2ZfCtc/0.jpg)](http://www.youtube.com/watch?v=L2_Er2ZfCtc "Demo")
+
+Server side is builded with nodejs and available here: [nodejs-server-kaltura-user-media](https://github.com/co-david/nodejs-server-kaltura-user-media)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
