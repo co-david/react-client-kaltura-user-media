@@ -1,5 +1,5 @@
 //Import actions type
-import { SET_MEDIA, SET_TOKEN, SEARCH, SORT_BY_DATE, START_LOADING, SET_ERROR, SET_LOGIN, SET_PAGE, DELETE_MEDIA } from '../actions/MediaActions';
+import { SET_MEDIA, SET_TOKEN, SEARCH, SET_FILTER_QUERY, START_LOADING, SET_ERROR, SET_LOGIN, DELETE_MEDIA } from '../actions/MediaActions';
 
 const getTokenFromLocalSorage = () => {
     let token = localStorage.getItem("token");
@@ -21,6 +21,8 @@ const initState = {
 }
 
 const mediaReducer = (state = initState, action) => {
+    console.log(action.payload);
+    
     switch (action.type) {
         case SET_MEDIA:
             return {
@@ -41,10 +43,12 @@ const mediaReducer = (state = initState, action) => {
                 ...state,
                 q: action.payload.q
             };
-        case SORT_BY_DATE:
+        case SET_FILTER_QUERY:
             return {
                 ...state,
-                sortByCreationDate: action.payload.checked
+                q: action.payload.q,
+                sortByCreationDate: action.payload.soryByCreationDate,
+                page: action.payload.page,
             };
         case START_LOADING:
             return {
@@ -56,11 +60,6 @@ const mediaReducer = (state = initState, action) => {
                 ...state,
                 isLogin: action.payload.status,
                 error: null,
-            };
-        case SET_PAGE:
-            return {
-                ...state,
-                page: action.payload.page,
             };
         case SET_ERROR:
             return {

@@ -1,11 +1,10 @@
 //Actions type
 export const SET_MEDIA = 'SET_MEDIA';
 export const SEARCH = 'SEARCH';
-export const SORT_BY_DATE = 'SORT_BY_DATE';
 export const START_LOADING = 'START_LOADING';
+export const SET_FILTER_QUERY = 'SET_FILTER_QUERY';
 export const SET_ERROR = 'SET_ERROR';
 export const SET_LOGIN = 'SET_LOGIN';
-export const SET_PAGE = 'SET_PAGE';
 export const DELETE_MEDIA = 'DELETE_MEDIA';
 export const SET_TOKEN = 'SET_TOKEN';
 
@@ -75,6 +74,7 @@ export const getAllMedia = () => {
 export const filter = (q, soryByCreationDate, page) => {
     return async (dispatch, getState) => {
         //Set values from state if not got them in function paramerts
+        console.log(getState());
         q = q === undefined ? getState().media.q : q;
         soryByCreationDate = soryByCreationDate === undefined ? getState().media.sortByCreationDate : soryByCreationDate;
         page = page || getState().media.page;
@@ -91,9 +91,7 @@ export const filter = (q, soryByCreationDate, page) => {
 
         if (response.status === 200) {
             const data = await response.json();
-            dispatch(setSeachQuery(q))
-            dispatch(setSortByCreationDate(soryByCreationDate))
-            dispatch(setPage(page));
+            dispatch(setFilterQuery({ q, soryByCreationDate, page}));
             dispatch(setMedia(data));
         } else if (response.status === 401) {
             //Not authenticate
@@ -183,12 +181,10 @@ const setSeachQuery = q => {
     }
 }
 
-const setSortByCreationDate = checked => {
+const setFilterQuery = query => {
     return {
-        type: SORT_BY_DATE,
-        payload: {
-            checked
-        }
+        type: SET_FILTER_QUERY,
+        payload: query
     }
 }
 
@@ -201,15 +197,6 @@ const setLogin = status => {
         type: SET_LOGIN,
         payload: {
             status
-        }
-    }
-}
-
-const setPage = page => {
-    return {
-        type: SET_PAGE,
-        payload: {
-            page
         }
     }
 }
